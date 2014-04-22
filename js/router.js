@@ -17,24 +17,23 @@ Todos.TodosIndexRoute = Ember.Route.extend({
     }
 });
 
-Todos.TodosActiveRoute = Ember.Route.extend({
-    model: function () {
-        return this.store.filter('todo', function(todo) {
-            return !todo.get('isCompleted');
-        });
+Todos.TodosBaseFilterRoute = Ember.Route.extend({
+   model: function () {
+        return this.store.filter('todo', this.getFilteredList);
     },
     renderTemplate: function(controller) {
         this.render('todos/index', {controller: controller});
+    } 
+});
+
+Todos.TodosActiveRoute = Todos.TodosBaseFilterRoute.extend({
+    getFilteredList: function(todo) {
+        return !todo.get('isCompleted');
     }
 });
 
-Todos.TodosCompletedRoute = Ember.Route.extend({
-    model: function () {
-        return this.store.filter('todo', function(todo) {
-            return todo.get('isCompleted');
-        });
-    },
-    renderTemplate: function(controller) {
-        this.render('todos/index', {controller: controller});
+Todos.TodosCompletedRoute = Todos.TodosBaseFilterRoute.extend({
+    getFilteredList: function(todo) {
+        return todo.get('isCompleted');
     }
 });
