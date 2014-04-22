@@ -22,7 +22,8 @@
                   {{edit-todo class="edit" value=title focus-out="updateTodo" insert-newline="updateTodo" }}
                 {{else}}
                   {{input type="checkbox" class="toggle" checked=isCompleted}}
-                  <label {{action "editTodo" on="doubleClick"}}>{{title}}</label><button class="destroy"></button>
+                  <label {{action "editTodo" on="doubleClick"}}>{{title}}</label>
+                  <button {{action "removeTodo"}} class="destroy"></button>
                 {{/if}}
               </li>
             {{/each}}
