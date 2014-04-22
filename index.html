@@ -15,19 +15,7 @@
         </header>
 
         <section id="main">
-          <ul id="todo-list">
-            {{#each itemController="todo"}}
-              <li {{bind-attr class="isCompleted:completed isEditing:editing"}}>
-                {{#if isEditing}}
-                  {{edit-todo class="edit" value=title focus-out="updateTodo" insert-newline="updateTodo" }}
-                {{else}}
-                  {{input type="checkbox" class="toggle" checked=isCompleted}}
-                  <label {{action "editTodo" on="doubleClick"}}>{{title}}</label>
-                  <button {{action "removeTodo"}} class="destroy"></button>
-                {{/if}}
-              </li>
-            {{/each}}
-          </ul>
+          {{outlet}}
 
           <input type="checkbox" id="toggle-all">
         </section>
@@ -57,6 +45,22 @@
       <footer id="info">
         <p>Double-click to edit a todo</p>
       </footer>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="todos/index">
+      <ul id="todo-list">
+        {{#each itemController="todo"}}
+          <li {{bind-attr class="isCompleted:completed isEditing:editing"}}>
+            {{#if isEditing}}
+              {{edit-todo class="edit" value=title focus-out="updateTodo" insert-newline="updateTodo" }}
+            {{else}}
+              {{input type="checkbox" class="toggle" checked=isCompleted}}
+              <label {{action "editTodo" on="doubleClick"}}>{{title}}</label>
+              <button {{action "removeTodo"}} class="destroy"></button>
+            {{/if}}
+          </li>
+        {{/each}}
+      </ul>
     </script>
 
     <script src="js/libs/jquery-1.10.2.min.js"></script>
